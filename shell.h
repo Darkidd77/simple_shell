@@ -14,8 +14,8 @@
 extern char **environ;
 
 void freearray2D(char **array);
-char *read_line(void);
-char **tokenizer(char *l);
+char *readl(void);
+char **tok(char *l);
 int _execute(char **com, char **arguv);
 char *_strdup(const char *str);
 int _strcmp(char *s1, char *s2);

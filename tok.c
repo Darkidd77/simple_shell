@@ -1,45 +1,41 @@
 #include "shell.h"
 
-
-
-
-
-
-
-
-
-char *tok = '\0', *tmp = '\0';
-int cpt = 0, i = 0;
-char **com = '\0';
-
-if (!l)
-	return('\0');
-
-tmp = _strdup(line);
-tok = strtok(tmp, DELIM);
-
-
-while (tok)
+char **tok(char *l)
 {
-	cpt++;
-	tok = strtok('\0', DELIM);
-}
-free(tmp), tmp = '\0';
-
-com = malloc(sizeof(char *) *(cpt + 1));
-if (!com)
-{
-	free(line), line = '\0';
-return ('\0');
-}
-tok = strtok(l, DELIM);
-while (tok)
-{
-	com[i] = _strdup(tok);
-	tok = strtok('\0', DELIM);
-	n++;
-}
-free(l), l = '\0';
-com[i] = '\0';
-return (command);
+	char *tok = NULL, *tmp = NULL;
+	int cpt = 0, i = 0;
+	char **com = NULL;
+	
+	if (!l)
+	return(NULL);
+	
+	tmp = _strdup(l);
+	tok = strtok(tmp, DELIM);
+	
+	while (tok)
+	{
+		
+		cpt++;
+		tok = strtok(NULL, DELIM);
+	}
+	
+	free(tmp), tmp = NULL;
+	
+	com = malloc(sizeof(char *) *(cpt + 1));
+	if (!com)
+	{
+		free(l), l = NULL;
+		return (NULL);
+	}
+	
+	tok = strtok(l, DELIM);
+	while (tok)
+	{
+		com[i] = _strdup(tok);
+		tok = strtok(NULL, DELIM);
+		i++;
+	}
+	free(l), l = NULL;
+	com[i] = NULL;
+	return (com);
 }

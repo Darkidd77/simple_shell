@@ -11,15 +11,15 @@
 int main(int arguc, char **argu)
 {
 	(void) argu;
-	char *l = '\0';
-	char **com = '\0';
-	(void) ac;
+	char *l = NULL;
+	char **com = NULL;
+	(void) arguc;
 	int stat;
 
 	for (;;)
 	{
-		l = read_line();
-		if (line == '\0')
+		l = readl();
+		if (l == NULL)
 		{
 			if (isatty(STDIN_FILENO))
 				write(STDOUT_FILENO, "\n", 1);
@@ -27,9 +27,9 @@ int main(int arguc, char **argu)
 		}
 
 		com = tokenizer(l);
-		if (!command)
+		if (!com)
 			continue;
 
-		stat = _execute(com, arguv);
+		stat = _execute(com, argu);
 	}
 }

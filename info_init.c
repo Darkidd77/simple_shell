@@ -47,7 +47,7 @@ void st_info(info_t *info, char **arguv)
 /**
  * fr_info - frees info_t struct fields
  * @info: struct address
- * @all: true if freeing all fields
+ * @al: true if freeing all fields
  */
 void fr_info(info_t *info, int al)
 {

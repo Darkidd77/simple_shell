@@ -8,7 +8,7 @@
  *
  * Return: size of list
  */
-list_t *add_nd(list_t **head, const char *str, int num)
+list_t *add_nd(list_t **hed, const char *str, int n)
 {
 	list_t *new_hed;
 
@@ -35,9 +35,9 @@ list_t *add_nd(list_t **head, const char *str, int num)
 
 /**
  * add_nd_end - adds a node to the end of the list
- * @head: address of pointer to head node
+ * @hed: address of pointer to head node
  * @str: str field of node
- * @num: node index used by history
+ * @n: node index used by history
  *
  * Return: size of list
  */
@@ -95,8 +95,8 @@ size_t print_liststr(const list_t *pnd)
 }
 
 /**
- * delete_node_at_index - deletes node at given index
- * @head: address of pointer to first node
+ * del_nd_index - deletes node at given index
+ * @hed: address of pointer to first node
  * @index: index of node to delete
  *
  * Return: 1 on success, 0 on failure
@@ -135,8 +135,8 @@ int del_nd_index(list_t **hed, unsigned int index)
 }
 
 /**
- * free_list - frees all nodes of a list
- * @head_ptr: address of pointer to head node
+ * f_list - frees all nodes of a list
+ * @hed_ptr: address of pointer to head node
  *
  * Return: void
  */

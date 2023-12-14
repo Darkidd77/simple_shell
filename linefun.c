@@ -8,7 +8,7 @@
  *
  * Return: bytes read
  */
-ssize_t inp_buf(info_t *info, char **buf, size_t *leng)
+ssize_t inp_ibuf(info_t *info, char **buf, size_t *leng)
 {
 	ssize_t n = 0;
 	size_t leng_p = 0;

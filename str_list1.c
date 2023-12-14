@@ -19,8 +19,8 @@ size_t list_leng(const list_t *pnd)
 }
 
 /**
- * list_to_strings - returns an array of strings of the list->str
- * @head: pointer to first node
+ * list_to_str - returns an array of strings of the list->str
+ * @hed: pointer to first node
  *
  * Return: array of strings
  */
@@ -80,9 +80,9 @@ size_t p_list(const list_t *pnd)
 
 /**
  * node_starts_w - returns node whose string starts with prefix
- * @node: pointer to list head
- * @prefix: string to match
- * @c: the next character after prefix to match
+ * @nd: pointer to list head
+ * @prfix: string to match
+ * @ch: the next character after prefix to match
  *
  * Return: match node or null
  */

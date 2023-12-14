@@ -11,7 +11,6 @@
 #include <fcntl.h>
 
 /**
- *
  * struct liststr - singly linked list
  * @num: the number field
  * @str: a string

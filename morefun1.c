@@ -30,8 +30,8 @@ int _eratoi(char *str)
 
 /**
  * error_print - prints an error message
- * @info: the parameter & return info struct
- * @estr: string containing specified error type
+ * @para: the parameter & return info struct
+ * @erstr: string containing specified error type
  * Return: 0 if no numbers in string, converted number otherwise
  *        -1 on error
  */
@@ -93,7 +93,7 @@ int print_dec(int inp, int fdsc)
  *
  * Return: string
  */
-char *uconv(long int n, int b, int flag)
+char *nconv(long int n, int b, int flag)
 {
 	static char *ar;
 	static char buffer[50];
@@ -122,19 +122,19 @@ char *uconv(long int n, int b, int flag)
 }
 
 /**
- * remove_comments - function replaces first instance of '#' with '\0'
+ * rm_comment - function replaces first instance of '#' with '\0'
  * @buf: address of the string to modify
  *
  * Return: Always 0;
  */
-void rm_comment(char *buff)
+void rm_comment(char *buf)
 {
 	int n;
 
-	for (n = 0; buff[n] != '\0'; n++)
-		if (buff[n] == '#' && (!n || buff[n - 1] == ' '))
+	for (n = 0; buf[n] != '\0'; n++)
+		if (buf[n] == '#' && (!n || buf[n - 1] == ' '))
 		{
-			buff[n] = '\0';
+			buf[n] = '\0';
 			break;
 		}
 }

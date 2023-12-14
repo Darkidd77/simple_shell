@@ -3,11 +3,11 @@
 /**
  * hsh - main shell loop
  * @info: the parameter & return info struct
- * @av: the argument vector from main()
+ * @arguv: the argument vector from main()
  *
  * Return: 0 on success, 1 on error, or error code
  */
-int hsh(info_t *info, char **argv)
+int hsh(info_t *info, char **arguv)
 {
 	ssize_t n = 0;
 	int builtin_ret = 0;
@@ -21,7 +21,7 @@ int hsh(info_t *info, char **argv)
 		n = get_input(info);
 		if (n != -1)
 		{
-			set_info(info, argv);
+			set_info(info, arguv);
 			builtin_ret = find_builtin(info);
 			if (builtin_ret == -1)
 				find_cmd(info);
@@ -78,7 +78,7 @@ int fbuiltin(info_t *info)
 }
 
 /**
- * find_cmd - finds a command in PATH
+ * fcmd - finds a command in PATH
  * @info: the parameter & return info struct
  *
  * Return: void
@@ -120,7 +120,7 @@ void fcmd(info_t *info)
 }
 
 /**
- * fork_cmd - forks a an exec thread to run cmd
+ * fork_com - forks a an exec thread to run cmd
  * @info: the parameter & return info struct
  *
  * Return: void
@@ -144,7 +144,6 @@ void fork_com(info_t *info)
 				exit(126);
 			exit(1);
 		}
-		/* TODO: PUT ERROR FUNCTION */
 	}
 	else
 	{

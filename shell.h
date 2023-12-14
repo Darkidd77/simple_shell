@@ -24,10 +24,6 @@ typedef struct liststr
 } list_t;
 
 
-/* getline.c module */
-ssize_t get_input(info_t *);
-int _getline(info_t *, char **, size_t *);
-void sigintHandler(int);
 
 
 /* path.c */
@@ -45,68 +41,116 @@ int _putfd(char c, int fd);
 int _putsfd(char *str, int fd);
 
 /* string_functions.c */
-int _strlen(char *);
-int _strcmp(char *, char *);
-char *starts_with(const char *, const char *);
-char *_strcat(char *, char *);
+int _strleng(char *);
+int _strc(char *, char *);
+char *starts_w(const char *, const char *);
+char *_strccat(char *, char *);
 
 /* string_functions2.c */
-char *_strcpy(char *, char *);
-char *_strdup(const char *);
+char *_strcopy(char *, char *);
+char *_strdpl(const char *);
 void _puts(char *);
 int _putchar(char);
 
 /* string_functions3.c */
-char *_strncpy(char *, char *, int);
-char *_strncat(char *, char *, int);
-char *_strchr(char *, char);
+char *_strncopy(char *, char *, int);
+char *_strnccat(char *, char *, int);
+char *_strch(char *, char);
 
 /* string_functions4.c */
-char **strtow(char *, char *);
-char **strtow2(char *, char);
+char **strw(char *, char *);
+char **strw2(char *, char);
 
 /* memory_functions */
-char *_memset(char *, char, unsigned int);
-void ffree(char **);
-void *_realloc(void *, unsigned int, unsigned int);
+char *_memoset(char *, char, unsigned int);
+void ssfree(char **);
+void *_rlloc(void *, unsigned int, unsigned int);
 
 /* memory_functions2.c */
-int bfree(void **);
+int pofree(void **);
 
 /* more_functions.c */
-int interactive(info_t *);
-int is_delim(char, char *);
-int _isalpha(int);
+int interact(info_t *);
+int if_delim(char, char *);
+int _ifalpha(int);
 int _atoi(char *);
 
 /* more_functions2.c */
-int _erratoi(char *);
-void print_error(info_t *, char *);
-int print_d(int, int);
-char *convert_number(long int, int, int);
-void remove_comments(char *);
+int _eratoi(char *);
+void error_print(info_t *, char *);
+int print_dec(int, int);
+char *nconv(long int, int, int);
+void rm_comment(char *);
 
 
 /* hsh.c */
 int hsh(info_t *, char **);
-int find_builtin(info_t *);
-void find_cmd(info_t *);
-void fork_cmd(info_t *);
+int fbuiltin(info_t *);
+void fcmd(info_t *);
+void fork_com(info_t *);
+
+
 
 
 
 /* builtin_emulators.c */
-int _myexit(info_t *);
-int _mycd(info_t *);
-int _myhelp(info_t *);
+int _mexit(info_t *);
+int _mcd(info_t *);
+int _mhelp(info_t *);
 
 /* builtin_emulators2.c */
 int _myhistory(info_t *);
 int _myalias(info_t *);
 
+/* getline.c module */
+ssize_t get_inp(info_t *);
+int _getline(info_t *, char **, size_t *);
+void sigintHand(int);
 
+/* info.c module */
+void c_info(info_t *);
+void st_info(info_t *, char **);
+void fr_info(info_t *, int);
 
+/* env.c module */
+char *_getenv(info_t *, const char *);
+int _menv(info_t *);
+int _msetenv(info_t *);
+int _munsetenv(info_t *);
+int pop_env_list(info_t *);
 
+/* env2.c module */
+char **get_envi(info_t *);
+int _unsetenvi(info_t *, char *);
+int _setenvi(info_t *, char *, char *);
+
+/* file_io_functions.c */
+char *get_history(info_t *info);
+int w_history(info_t *info);
+int r_history(info_t *info);
+int history_list(info_t *info, char *buf, int linecount);
+int renum_history(info_t *info);
+
+/* liststr.c module */
+list_t *add_nd(list_t **, const char *, int);
+list_t *add_nd_end(list_t **, const char *, int);
+size_t print_liststr(const list_t *);
+int del_nd_index(list_t **, unsigned int);
+void f_list(list_t **);
+
+/* liststr2.c module */
+size_t list_leng(const list_t *);
+char **list_to_str(list_t *);
+size_t p_list(const list_t *);
+list_t *node_starts_w(list_t *, char *, char);
+ssize_t get_nd_index(list_t *, list_t *);
+
+/* chain.c */
+int is_chain(info_t *, char *, size_t *);
+void check_chain(info_t *, char *, size_t *, size_t, size_t);
+int replace_alias(info_t *);
+int replace_vars(info_t *);
+int replace_string(char **, char *);
 
 
 

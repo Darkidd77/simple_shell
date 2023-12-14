@@ -1,5 +1,15 @@
 #include "shell.h"
 
+
+/**
+ * _execu - function to execute the proccess
+ *
+ * @com: command line
+ * @arguv: arguments
+ *
+ * Return: stat
+ */
+
 int _execu(char **com, char **arguv)
 {
 	pid_t child;
@@ -18,7 +28,7 @@ int _execu(char **com, char **arguv)
 	else
 	{
 		waitpid(child, &stat, 0);
-		freearray2D(command);
+		freearray2D(com);
 	}
-	return(WEXITSTATUS(stat));
+	return (WEXITSTATUS(stat));
 }

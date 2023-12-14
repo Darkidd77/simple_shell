@@ -1,56 +1,86 @@
 #include "shell.h"
 
-char *_getpath( char *com)
+/**
+ * if_cmd - determines if a file is an executable command
+ * @info: the info struct
+ * @path: path to the file
+ *
+ * Return: 1 if true, 0 otherwise
+ */
+int if_cmd(info_t *info, char *path)
 {
-	char *path_env, *full_cmd, *dir;
-	int i;
 	struct stat st;
 
-	for (i = 0; com[i]; i++)
-	{
-		if (com[i] == '/')
-		{
-			if (stat(com, &st) == 0)
-				return (_strdup(com));
+	(void)info;
+	if (!path || stat(path, &st))
+		return (0);
 
-			return (NULL);
-		}
+	if (st.st_mode & S_IFREG)
+	{
+		return (1);
 	}
+	return (0);
+}
 
-	path_env = _getenv("PATH");
+/**
+ * dp_char - duplicates characters
+ * @pstr: the PATH string
+ * @star: starting index
+ * @stop: stopping index
+ *
+ * Return: pointer to new buffer
+ */
+char *dp_char(char *pstr, int star, int stop)
+{
+	static char buf[1024];
+	int x = 0, v = 0;
 
-	dir = strtok(path_env, ":");
-	while (dir)
+	for (v = 0, x = star; x < stop; x++)
+		if (pstr[x] != ':')
+			buf[v++] = pstr[x];
+	buf[v] = 0;
+	return (buf);
+}
+
+/**
+ * fpath - finds this cmd in the PATH string
+ * @info: the info struct
+ * @pstr: the PATH string
+ * @cmd: the cmd to find
+ *
+ * Return: full path of cmd if found or NULL
+ */
+char *fpath(info_t *info, char *pstr, char *cmd)
+{
+	int x = 0, crnt_pos = 0;
+	char *p;
+
+	if (!pstr)
+		return (NULL);
+	if ((_strleng(cmd) > 2) && starts_w(cmd, "./"))
 	{
-		full_cmd = malloc(_strlen(dir) + _strlen(com));
-		if (full_cmd)
+		if (if_cmd(info, cmd))
+			return (cmd);
+	}
+	while (1)
+	{
+		if (!pstr[x] || pstr[x] == ':')
 		{
-			_strcpy(full_cmd, dir);
-			_strcat(full_cmd, "/");
-			_strcat(full_cmd, com);
-			if (stat(full_cmd, &st) == 0)
+			p = dp_char(pstr, crnt_pos, x);
+			if (!*p)
+				_strcat(p, cmd);
+			else
 			{
-				free(path_env);
-				return (full_cmd);
+				_strcat(p, "/");
+				_strcat(p, cmd);
 			}
-
-			free(full_cmd), full_cmd = NULL;
-
-			dir = strtok(NULL, ":");
+			if (if_cmd(info, p))
+				return (p);
+			if (!pstr[x])
+				break;
+			crnt_pos = x;
 		}
+		x++;
 	}
-	free(path_env);
 	return (NULL);
 }
-
-int main(int ac, char **av)
-{
-	char *full_cmd;
-
-	full_cmd = _getpath(av[1]);
-	if (full_cmd)
-		printf("%s\n", full_cmd);
-	else
-		printf("does not exist\n");
-}
-

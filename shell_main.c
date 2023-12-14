@@ -1,35 +1,44 @@
 #include "shell.h"
 
 /**
- * main - Main simple shell function
- * @arguc: arguements count
- * @argu: arguements
+ * main - entry point
+ * @argc: arg count
+ * @argv: arg vector
  *
- * Return: 0 Success
+ * Return: 0 on success, 1 on error
  */
-
-int main(int arguc, char **argu)
+int main(int argc, char **argv)
 {
-	(void) argu;
-	char *l = NULL;
-	char **com = NULL;
-	(void) arguc;
-	int stat;
+	info_t info[] = { INFO_INIT };
+	int fd = 2;
 
-	for (;;)
+	asm ("mov %1, %0\n\t"
+		"add $3, %0"
+		: "=r" (fd)
+		: "r" (fd));
+
+	if (argc == 2)
 	{
-		l = readl();
-		if (l == NULL)
+		fd = open(argv[1], O_RDONLY);
+		if (fd == -1)
 		{
-			if (isatty(STDIN_FILENO))
-				write(STDOUT_FILENO, "\n", 1);
-			return (stat);
+			if (errno == EACCES)
+				exit(126);
+			if (errno == ENOENT)
+			{
+				_eputs(argv[0]);
+				_eputs(": 0: Can't open ");
+				_eputs(argv[1]);
+				_eputchar('\n');
+				_eputchar(BUF_FLUSH);
+				exit(127);
+			}
+			return (EXIT_FAILURE);
 		}
-
-		com = tokenizer(l);
-		if (!com)
-			continue;
-
-		stat = _execute(com, argu);
+		info->readfd = fd;
 	}
+	populate_env_list(info);
+	read_history(info);
+	hsh(info, argv);
+	return (EXIT_SUCCESS);
 }

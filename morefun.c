@@ -1,34 +1,74 @@
 #include "shell.h"
 
-void freearrayofstring(char **ar)
+/**
+ * interact - returns true if shell is interactive mode
+ * @info: struct address
+ *
+ * Return: 1 if interactive mode, 0 otherwise
+ */
+int interact(info_t *info)
 {
-	int n;
-	
-	if (!ar)
-		return;
-
-	for (n = 0; ar[i]; n++)
-	{
-		free(ar[n]);
-		ar[n] = '\0';
-	}
-
-	free(ar), ar = '\0';
+	return (isatty(STDIN_FILENO) && info->readfd <= 2);
 }
 
-void printerror(char *name, char *cmd, int idx)
+/**
+ * if_delim - checks if character is a delimeter
+ * @ch: the char to check
+ * @deli: the delimeter string
+ * Return: 1 if true, 0 if false
+ */
+int if_delim(char ch, char *deli)
 {
-	char *index;
+	while (*deli)
+		if (*deli++ == ch)
+			return (1);
+	return (0);
+}
 
+/**
+ *_ifalpha - checks for alphabetic character
+ *@ch: The character to input
+ *Return: 1 if ch is alphabetic, 0 otherwise
+ */
 
-	index = _itoa(idx);
+int _ifalpha(int ch)
+{
+	if ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z'))
+		return (1);
+	else
+		return (0);
+}
 
-	write(STDERR_FILENO, name, _strlen(name));
-	write(STDERR_FILENO, ": ", 2);
+/**
+ *_atoi - converts a string to an integer
+ *@str: the string to be converted
+ *Return: 0 if no numbers in string, converted number otherwise
+ */
 
-	write(STDERR_FILENO, index, _strlen(index));
-	write(STDERR_FILENO, ": ", 2);
+int _atoi(char *str)
+{
+	int n, sign = 1, flag = 0, outp;
+	unsigned int rslt = 0;
 
-	write(STDERR_FILENO, cmd, _strlen(cmd));
-	write(STDERR_FILENO, mssg, _strlen(mssg));
+	for (n = 0;  str[n] != '\0' && flag != 2; n++)
+	{
+		if (str[n] == '-')
+			sign *= -1;
+
+		if (str[n] >= '0' && str[n] <= '9')
+		{
+			flag = 1;
+			rslt *= 10;
+			rslt += (str[n] - '0');
+		}
+		else if (flag == 1)
+			flag = 2;
+	}
+
+	if (sign == -1)
+		outp = -rslt;
+	else
+		outp = rslt;
+
+	return (outp);
 }

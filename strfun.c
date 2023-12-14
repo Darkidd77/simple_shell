@@ -1,74 +1,75 @@
 #include "shell.h"
+
 /**
- * _strleng - returns the length of a string
- * @str: the string whose length to check
+ * _strlen - returns the length of a string
+ * @s: the string whose length to check
  *
  * Return: integer length of string
  */
-int _strleng(char *str)
+int _strlen(char *s)
 {
-	int x = 0;
+	int i = 0;
 
-	if (!str)
+	if (!s)
 		return (0);
 
-	while (*str++)
-		x++;
-	return (x);
+	while (*s++)
+		i++;
+	return (i);
 }
 
 /**
- * _strc - performs lexicogarphic comparison of two strangs.
- * @str1: the first strang
- * @str2: the second strang
+ * _strcmp - performs lexicogarphic comparison of two strangs.
+ * @s1: the first strang
+ * @s2: the second strang
  *
- * Return: negative, positive, zero
+ * Return: negative if s1 < s2, positive if s1 > s2, zero if s1 == s2
  */
-int _strc(char *str1, char *str2)
+int _strcmp(char *s1, char *s2)
 {
-	while (*str1 && *str2)
+	while (*s1 && *s2)
 	{
-		if (*str1 != *str2)
-			return (*str1 - *str2);
-		str1++;
-		str2++;
+		if (*s1 != *s2)
+			return (*s1 - *s2);
+		s1++;
+		s2++;
 	}
-	if (*str1 == *str2)
+	if (*s1 == *s2)
 		return (0);
 	else
-		return (*str1 < *str2 ? -1 : 1);
+		return (*s1 < *s2 ? -1 : 1);
 }
 
 /**
- * starts_w - checks if needle starts with haystack
- * @hystk: string to search
- * @ndl: the substring to find
+ * starts_with - checks if needle starts with haystack
+ * @haystack: string to search
+ * @needle: the substring to find
  *
- * Return: address of next char of hystk or NULL
+ * Return: address of next char of haystack or NULL
  */
-char *starts_w(const char *hystk, const char *ndl)
+char *starts_with(const char *haystack, const char *needle)
 {
-	while (*ndl)
-		if (*ndl++ != *hystk++)
+	while (*needle)
+		if (*needle++ != *haystack++)
 			return (NULL);
-	return ((char *)hystk);
+	return ((char *)haystack);
 }
 
 /**
- * _strccat - concatenates two strings
- * @d: the destination buffer
- * @s: the source buffer
+ * _strcat - concatenates two strings
+ * @dest: the destination buffer
+ * @src: the source buffer
  *
  * Return: pointer to destination buffer
  */
-char *_strccat(char *d, char *s)
+char *_strcat(char *dest, char *src)
 {
-	char *r = d;
+	char *ret = dest;
 
-	while (*d)
-		d++;
-	while (*s)
-		*d++ = *s++;
-	*d = *s;
-	return (r);
+	while (*dest)
+		dest++;
+	while (*src)
+		*dest++ = *src++;
+	*dest = *src;
+	return (ret);
 }

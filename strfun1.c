@@ -1,48 +1,48 @@
 #include "shell.h"
 
 /**
- * _strcopy - copies a string
- * @d: the destination
- * @s: the source
+ * _strcpy - copies a string
+ * @dest: the destination
+ * @src: the source
  *
  * Return: pointer to destination
  */
-char *_strcopy(char *d, char *s)
+char *_strcpy(char *dest, char *src)
 {
-	int n = 0;
+	int i = 0;
 
-	if (d == src || s == 0)
-		return (d);
-	while (s[n])
+	if (dest == src || src == 0)
+		return (dest);
+	while (src[i])
 	{
-		d[n] = s[n];
-		n++;
+		dest[i] = src[i];
+		i++;
 	}
-	d[n] = 0;
-	return (d);
+	dest[i] = 0;
+	return (dest);
 }
 
 /**
- * _strdpl - duplicates a string
+ * _strdup - duplicates a string
  * @str: the string to duplicate
  *
  * Return: pointer to the duplicated string
  */
-char *_strdpl(const char *str)
+char *_strdup(const char *str)
 {
-	int leng = 0;
-	char *r;
+	int length = 0;
+	char *ret;
 
 	if (str == NULL)
 		return (NULL);
 	while (*str++)
-		leng++;
-	r = malloc(sizeof(char) * (leng + 1));
-	if (!r)
+		length++;
+	ret = malloc(sizeof(char) * (length + 1));
+	if (!ret)
 		return (NULL);
-	for (leng++; leng--;)
-		ret[leng] = *--str;
-	return (r);
+	for (length++; length--;)
+		ret[length] = *--str;
+	return (ret);
 }
 
 /**
@@ -53,35 +53,35 @@ char *_strdpl(const char *str)
  */
 void _puts(char *str)
 {
-	int n = 0;
+	int i = 0;
 
 	if (!str)
 		return;
-	while (str[n] != '\0')
+	while (str[i] != '\0')
 	{
-		_putchar(str[n]);
-		n++;
+		_putchar(str[i]);
+		i++;
 	}
 }
 
 /**
  * _putchar - writes the character c to stdout
- * @ch: The character to print
+ * @c: The character to print
  *
  * Return: On success 1.
  * On error, -1 is returned, and errno is set appropriately.
  */
-int _putchar(char ch)
+int _putchar(char c)
 {
-	static int n;
+	static int i;
 	static char buf[WRITE_BUF_SIZE];
 
-	if (ch == BUF_FLUSH || n >= WRITE_BUF_SIZE)
+	if (c == BUF_FLUSH || i >= WRITE_BUF_SIZE)
 	{
-		write(1, buf, n);
-		n = 0;
+		write(1, buf, i);
+		i = 0;
 	}
-	if (ch != BUF_FLUSH)
-		buf[n++] = ch;
+	if (c != BUF_FLUSH)
+		buf[i++] = c;
 	return (1);
 }

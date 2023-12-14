@@ -1,10 +1,10 @@
 #include "shell.h"
 
 /**
- * c_info - initializes info_t struct
+ * clear_info - initializes info_t struct
  * @info: struct address
  */
-void c_info(info_t *info)
+void clear_info(info_t *info)
 {
 	info->arg = NULL;
 	info->argv = NULL;
@@ -13,11 +13,11 @@ void c_info(info_t *info)
 }
 
 /**
- * st_info - initializes info_t struct
+ * set_info - initializes info_t struct
  * @info: struct address
- * @arguv: argument vector
+ * @av: argument vector
  */
-void st_info(info_t *info, char **arguv)
+void set_info(info_t *info, char **av)
 {
 	int i = 0;
 
@@ -45,16 +45,16 @@ void st_info(info_t *info, char **arguv)
 }
 
 /**
- * fr_info - frees info_t struct fields
+ * free_info - frees info_t struct fields
  * @info: struct address
- * @al: true if freeing all fields
+ * @all: true if freeing all fields
  */
-void fr_info(info_t *info, int al)
+void free_info(info_t *info, int all)
 {
 	ffree(info->argv);
 	info->argv = NULL;
-	info->p = NULL;
-	if (al)
+	info->path = NULL;
+	if (all)
 	{
 		if (!info->cmd_buf)
 			free(info->arg);

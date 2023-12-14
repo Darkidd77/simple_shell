@@ -1,39 +1,39 @@
 #include "shell.h"
 
 /**
- * interact - returns true if shell is interactive mode
+ * interactive - returns true if shell is interactive mode
  * @info: struct address
  *
  * Return: 1 if interactive mode, 0 otherwise
  */
-int interact(info_t *info)
+int interactive(info_t *info)
 {
 	return (isatty(STDIN_FILENO) && info->readfd <= 2);
 }
 
 /**
- * if_delim - checks if character is a delimeter
- * @ch: the char to check
- * @deli: the delimeter string
+ * is_delim - checks if character is a delimeter
+ * @c: the char to check
+ * @delim: the delimeter string
  * Return: 1 if true, 0 if false
  */
-int if_delim(char ch, char *deli)
+int is_delim(char c, char *delim)
 {
-	while (*deli)
-		if (*deli++ == ch)
+	while (*delim)
+		if (*delim++ == c)
 			return (1);
 	return (0);
 }
 
 /**
- *_ifalpha - checks for alphabetic character
- *@ch: The character to input
- *Return: 1 if ch is alphabetic, 0 otherwise
+ *_isalpha - checks for alphabetic character
+ *@c: The character to input
+ *Return: 1 if c is alphabetic, 0 otherwise
  */
 
-int _ifalpha(int ch)
+int _isalpha(int c)
 {
-	if ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z'))
+	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
 		return (1);
 	else
 		return (0);
@@ -41,34 +41,34 @@ int _ifalpha(int ch)
 
 /**
  *_atoi - converts a string to an integer
- *@str: the string to be converted
+ *@s: the string to be converted
  *Return: 0 if no numbers in string, converted number otherwise
  */
 
-int _atoi(char *str)
+int _atoi(char *s)
 {
-	int n, sign = 1, flag = 0, outp;
-	unsigned int rslt = 0;
+	int i, sign = 1, flag = 0, output;
+	unsigned int result = 0;
 
-	for (n = 0;  str[n] != '\0' && flag != 2; n++)
+	for (i = 0;  s[i] != '\0' && flag != 2; i++)
 	{
-		if (str[n] == '-')
+		if (s[i] == '-')
 			sign *= -1;
 
-		if (str[n] >= '0' && str[n] <= '9')
+		if (s[i] >= '0' && s[i] <= '9')
 		{
 			flag = 1;
-			rslt *= 10;
-			rslt += (str[n] - '0');
+			result *= 10;
+			result += (s[i] - '0');
 		}
 		else if (flag == 1)
 			flag = 2;
 	}
 
 	if (sign == -1)
-		outp = -rslt;
+		output = -result;
 	else
-		outp = rslt;
+		output = result;
 
-	return (outp);
+	return (output);
 }

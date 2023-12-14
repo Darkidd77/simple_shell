@@ -1,20 +1,20 @@
 #include "shell.h"
 
 /**
- * _mexit - exits the shell
+ * _myexit - exits the shell
  * @info: Structure containing potential arguments. Used to maintain
  *          constant function prototype.
  *  Return: exits with a given exit status
  *         (0) if info.argv[0] != "exit"
  */
-int _mexit(info_t *info)
+int _myexit(info_t *info)
 {
-	int extcheck;
+	int exitcheck;
 
 	if (info->argv[1])  /* If there is an exit arguement */
 	{
-		extcheck = _erratoi(info->argv[1]);
-		if (extcheck == -1)
+		exitcheck = _erratoi(info->argv[1]);
+		if (exitcheck == -1)
 		{
 			info->status = 2;
 			print_error(info, "Illegal number: ");
@@ -30,24 +30,25 @@ int _mexit(info_t *info)
 }
 
 /**
- * _mcd - changes the current directory of the process
+ * _mycd - changes the current directory of the process
  * @info: Structure containing potential arguments. Used to maintain
  *          constant function prototype.
  *  Return: Always 0
  */
-int _mcd(info_t *info)
+int _mycd(info_t *info)
 {
-	char *a, *dir, buffer[1024];
+	char *s, *dir, buffer[1024];
 	int chdir_ret;
 
-	a = getcwd(buffer, 1024);
-	if (!a)
+	s = getcwd(buffer, 1024);
+	if (!s)
 		_puts("TODO: >>getcwd failure emsg here<<\n");
 	if (!info->argv[1])
 	{
 		dir = _getenv(info, "HOME=");
 		if (!dir)
-			chdir_ret = chdir((dir = _getenv(info, "PWD=")) ? dir : "/");
+			chdir_ret = /* TODO: what should this be? */
+				chdir((dir = _getenv(info, "PWD=")) ? dir : "/");
 		else
 			chdir_ret = chdir(dir);
 	}
@@ -55,12 +56,13 @@ int _mcd(info_t *info)
 	{
 		if (!_getenv(info, "OLDPWD="))
 		{
-			_puts(a);
+			_puts(s);
 			_putchar('\n');
 			return (1);
 		}
 		_puts(_getenv(info, "OLDPWD=")), _putchar('\n');
-		chdir_ret = chdir((dir = _getenv(info, "OLDPWD=")) ? dir : "/");
+		chdir_ret = /* TODO: what should this be? */
+			chdir((dir = _getenv(info, "OLDPWD=")) ? dir : "/");
 	}
 	else
 		chdir_ret = chdir(info->argv[1]);
@@ -78,18 +80,18 @@ int _mcd(info_t *info)
 }
 
 /**
- * _mhelp - changes the current directory of the process
+ * _myhelp - changes the current directory of the process
  * @info: Structure containing potential arguments. Used to maintain
  *          constant function prototype.
  *  Return: Always 0
  */
-int _mhelp(info_t *info)
+int _myhelp(info_t *info)
 {
-	char **arg_ar;
+	char **arg_array;
 
-	arg_ar = info->argv;
+	arg_array = info->argv;
 	_puts("help call works. Function not yet implemented \n");
 	if (0)
-		_puts(*arg_ar); /* temp att_unused workaround */
+		_puts(*arg_array); /* temp att_unused workaround */
 	return (0);
 }
